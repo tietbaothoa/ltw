@@ -1,0 +1,36 @@
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 24px; /* row-gap / column-gap */
+  max-width: 600px;
+  margin: 20 auto;
+}
+
+.form-container label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.form-container input,
+.form-container textarea {
+  margin-top: 6px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #a19e9e;
+  border-radius: 4px;
+}
+
+/* textarea cao hơn input */
+.form-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* button chiếm full 2 cột */
+.form-container button {
+  grid-column: span 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 2px;
+}
