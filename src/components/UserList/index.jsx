@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemText,
   Typography,
+  TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -20,6 +21,8 @@ function UserList() {
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState("Loading...");
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
     getData(API + "/api/users")
@@ -40,8 +43,19 @@ function UserList() {
         <a href="https://mui.com/components/dividers/">Dividers</a> to display
         your users like so:
       </Typography>
+      <TextField
+        size="small"
+        label="Search user"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{ marginBottom: 8 }}
+      />
+
       <List component="nav">
-        {users.map((item) => (
+      {users.filter((user) =>
+        user.first_name.toLowerCase().includes(searchTerm.toLowerCase())
+      ).map((item) => (
+
           <>
             <ListItem>
               <Link to={"/users/" + item._id}>

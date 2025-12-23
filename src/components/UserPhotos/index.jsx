@@ -29,7 +29,7 @@ function UserPhotos() {
         console.log(err);
         navigate("/login");
       });
-  }, [user, refresh, photos.length]);
+  }, [user, refresh]);
 
   function viewPhoto() {
     const viewP = [];
@@ -57,9 +57,11 @@ function UserPhotos() {
       match. So this should show details of user:
       {user.userId}.
       <br />
+      <p>Total photos: {photos.length}</p>
       <Divider />
       <br />
       {status === "OK" ? viewPhoto() : status}
+      
     </Typography>
   );
 }
@@ -131,7 +133,11 @@ function CommentView( { photoId } ) {
             <h5>Time: {cmt.date_time}</h5>            
             <ul>
               <li>Comment: {cmt.comment}</li>  
+              {/* <button onClick={() => deteleComment(cmt._id)}>
+                Delete comment
+              </button> */}
             </ul>
+            
           </div>
         ))
       )}
@@ -166,7 +172,7 @@ function DetetePhoto( { photoId, setPhotos } ) {
 
   return (
     <div>
-      
+      {/* <button onClick={deletePhoto}> Delete</button> */}
     </div>
   )
 }

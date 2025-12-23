@@ -58,6 +58,7 @@ function UserDetail() {
             <br />
             Occupation{": " + userDetail.occupation}
             <br />
+
             <Link to={"../photos/" + user.userId}>My PhotoShare</Link>
           </div>
         ) : (
