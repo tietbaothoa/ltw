@@ -16,6 +16,8 @@ function UserPhotos() {
   const [refresh, setRefresh] = useState(false);
   const [status, setStatus] = useState("Loading ...");
   const navigate = useNavigate();
+  const [likeNum, setLikeNum] = useState({});
+
 
   useEffect(() => {
     setStatus("Loading ...");
@@ -71,6 +73,8 @@ function CommentView( { photoId } ) {
   const [comments, setComments] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [status, setStatus] = useState("Loading ...");
+  const [editingId, setEditingId] = useState(null); 
+  const [editedText, setEditedText] = useState(""); 
 
   function deteleComment(commentId) {
     const data = { photo_id: photoId, cmt_id: commentId };
@@ -101,6 +105,20 @@ function CommentView( { photoId } ) {
       .catch((err) => {
         console.log(err);
     });
+  }
+
+  function editComment(commentId) {
+    if (editedText.trim() === "") {
+      alert("Comment cannot be empty!");
+      return;
+    }
+    
+    handleData(API + "/api/comment/" + commentId, "PUT", { comment: editedText })
+      .then(() => {
+        setEditingId(null);
+        setRefresh(true);
+      })
+      .catch((err) => console.log(err));
   }
 
   useEffect(() => {
@@ -136,6 +154,17 @@ function CommentView( { photoId } ) {
               {/* <button onClick={() => deteleComment(cmt._id)}>
                 Delete comment
               </button> */}
+              {/* {editingId === cmt._id ? (
+                <li>
+                  <input value={editedText} onChange={(e) => setEditedText(e.target.value)} />
+                  <button onClick={() => editComment(cmt._id)}>Save</button>
+                  <button onClick={() => setEditingId(null)}>Cancel</button>
+                </li>
+              ) : (
+                <li>
+                  <button onClick={() => { setEditingId(cmt._id); setEditedText(cmt.comment); }}>Edit</button>
+                </li>
+              )} */}
             </ul>
             
           </div>
@@ -154,6 +183,8 @@ function CommentView( { photoId } ) {
     </div>
   );
 }
+
+
 
 function DetetePhoto( { photoId, setPhotos } ) {
   function deletePhoto() {
